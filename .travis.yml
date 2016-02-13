@@ -1,16 +1,17 @@
 sudo: false
 language: generic
 
-addons: {sources: [hvr-ghc], apt: {packages: [happy-1.19.5, alex-3.1.7]}}
+# addons: {sources: [hvr-ghc], apt: {packages: [happy-1.19.5, alex-3.1.7]}}
 
 matrix:
   include:
-    - addons: {sources: [hvr-ghc], apt: {packages: [cabal-install-1.18,ghc-7.6.3]}}
-    - env: BROKEN=1
-      addons: {sources: [hvr-ghc], apt: {packages: [cabal-install-head,ghc-head]}}
+    - env: GHCVER=7.6.3
+      addons: {apt: {packages: [ghc-7.6.3,cabal-install-1.18,happy-1.19.5, alex-3.1.7], sources: [hvr-ghc]}}
+    - env: GHCVER=HEAD
+      addons: {apt: {packages: [ghc-head,cabal-install-head,happy-1.19.5, alex-3.1.7], sources: [hvr-ghc]}}
 
   allow_failures:
-   - env: BROKEN=1
+   - env: GHCVER=HEAD
 
 # Note: script continues if there is a failure, install does not
 # When using for real should use 'install'
