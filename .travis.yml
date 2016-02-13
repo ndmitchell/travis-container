@@ -1,27 +1,22 @@
 sudo: false
+language: generic
 
-addons:
-  apt:
-    sources:
-    - hvr-ghc
-    packages:
-    - happy-1.19.5
-    - alex-3.1.7
-    - cabal-install-$CABALVER
+env: HAPPYVER=1.19.5 ALEXVER=3.1.7
+addons: {sources: [hvr-ghc], apt: {packages: [happy-1.19.5, alex-3.1.7]}}
 
 matrix:
   include:
     - env: CABALVER=1.18 GHCVER=7.6.3
-      # addons: {apt: {packages: [cabal-install-1.18,ghc-7.6.3], sources: [hvr-ghc]}}
+      addons: {sources: [hvr-ghc], apt: {packages: [cabal-install-1.18,ghc-7.6.3]}}
     - env: CABALVER=head GHCVER=head
-      # addons: {apt: {packages: [cabal-install-head,ghc-head],  sources: [hvr-ghc]}}
+      addons: {sources: [hvr-ghc], apt: {packages: [cabal-install-head,ghc-head]}}
 
   allow_failures:
    - env: CABALVER=head GHCVER=head
 
+# Note: script continues if there is a failure, install does not
+# When using for real should use 'install'
 script:
- - export HAPPYVER=1.19.5
- - export ALEXVER=3.1.7
  - export PATH=~/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
  - cabal --version
  - ghc --version
