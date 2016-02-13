@@ -1,14 +1,14 @@
 sudo: false
 language: generic
 
-# addons: {apt: {packages: [happy-1.19.5, alex-3.1.7], sources: [hvr-ghc]}}
+addons: {apt: {packages: [happy-1.19.5, alex-3.1.7], sources: [hvr-ghc]}}
 
 matrix:
   include:
     - env: GHCVER=7.6.3
-      addons: {apt: {packages: [ghc-7.6.3,cabal-install-1.18,happy-1.19.5, alex-*], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [ghc-7.6.3,cabal-install-1.18], sources: [hvr-ghc]}}
     - env: GHCVER=HEAD
-      addons: {apt: {packages: [ghc-head,cabal-install-head,happy-1.19.5, alex-*], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [ghc-head,cabal-install-head], sources: [hvr-ghc]}}
 
   allow_failures:
    - env: GHCVER=HEAD
@@ -16,9 +16,7 @@ matrix:
 # Note: script continues if there is a failure, install does not
 # When using for real should use 'install'
 script:
- - export HAPPYVER=1.19.5
- - export ALEXVER=3.1.7
- - export PATH=~/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
+ - export PATH=~/.cabal/bin:/opt/ghc/$(ls /opt/ghc)/bin:/opt/cabal/$(ls /opt/cabal)/bin:/opt/happy/$(ls /opt/happy)/bin:/opt/alex/$(ls /opt/alex)/bin:$PATH
  - ls /opt/ghc
  - ls /opt/cabal
  - ls /opt/happy
