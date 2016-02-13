@@ -1,25 +1,28 @@
-# explicitly request container-based infrastructure
 sudo: false
+
+addons:
+  apt:
+    sources:
+    - hvr-ghc
+    packages:
+    - happy-1.19.5
+    - alex-3.1.7
 
 matrix:
   include:
     - env: CABALVER=1.18 GHCVER=7.6.3
-      addons: {apt: {packages: [cabal-install-1.18,ghc-7.6.3,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [cabal-install-1.18,ghc-7.6.3]}}
     - env: CABALVER=head GHCVER=head
-      addons: {apt: {packages: [cabal-install-head,ghc-head,happy-1.19.5,alex-3.1.7],  sources: [hvr-ghc]}}
+      addons: {apt: {packages: [cabal-install-head,ghc-head]}}
 
   allow_failures:
    - env: CABALVER=head GHCVER=head
 
-before_install:
+script:
  - export HAPPYVER=1.19.5
  - export ALEXVER=3.1.7
  - export PATH=~/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
-
-install:
  - cabal --version
  - ghc --version
-
-script:
  - happy --version
  - alex --version
