@@ -4,9 +4,9 @@ language: generic
 matrix:
   include:
     - env: GHCVER=7.6.3
-      addons: {apt: {packages: [ghc-7.6.3,cabal-install-1.18, happy-1.19.5, alex-3.1.7], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [ghc-7.6.3,cabal-install-1.18,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
     - env: GHCVER=HEAD
-      addons: {apt: {packages: [ghc-head,cabal-install-head, happy-1.19.5, alex-3.1.7], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [ghc-head,cabal-install-head,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
 
   allow_failures:
    - env: GHCVER=HEAD
